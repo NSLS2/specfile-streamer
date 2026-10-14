@@ -1,0 +1,13 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 2026.08.14
+_src_path: gh:scientific-python/cookie
+backend: hatch
+docs: sphinx
+email: dallan@bnl.gov
+full_name: Dan Allan
+license: BSD
+org: NSLS2
+project_name: specfile-streamer
+project_short_description: Stream Bluesky runs from Tiled into SPEC-format text files
+url: https://github.com/NSLS2/specfile-streamer
+vcs: true
