@@ -51,8 +51,13 @@ repos:
         files: src|tests|noxfile.py
         args: []
         additional_dependencies:
+          - fastapi
+          - httpx
           - nox
+          - pydantic>=2
+          - pydantic-settings>=2
           - pytest
+          - uvicorn
 
   - repo: https://github.com/codespell-project/codespell
     rev: "v2.4.3"

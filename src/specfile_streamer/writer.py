@@ -19,10 +19,11 @@ class UnsafePathError(ValueError):
     """The requested SPEC file path is outside the configured base directory."""
 
 
-def resolve_spec_path(base_directory: Path, requested: str) -> Path:
+def resolve_spec_path(base_directory: Path, requested: object) -> Path:
     """Resolve ``requested`` against ``base_directory``.
 
-    Relative paths are joined to ``base_directory``. Absolute paths are
+    ``requested`` comes from user-controlled metadata, so anything other than
+    a non-empty string is rejected. Relative paths are joined to ``base_directory``. Absolute paths are
     accepted only if they already lie inside it. Symlinks are resolved before
     checking, so a link cannot be used to escape.
     """

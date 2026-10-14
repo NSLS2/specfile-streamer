@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import time
 from datetime import datetime, timezone
+from typing import Any
 
 import pytest
 
@@ -92,7 +93,7 @@ def created(uid, start, path=("raw",), spec="BlueskyRun"):
 
 
 def stop_update(uid, nested=True):
-    md = {"start": {}, "stop": {"exit_status": "abort", "time": 3.0}}
+    md: dict[str, Any] = {"start": {}, "stop": {"exit_status": "abort", "time": 3.0}}
     if nested:  # what Tiled 0.2.19 actually sends
         md = {
             "type": "container-child-metadata-updated",

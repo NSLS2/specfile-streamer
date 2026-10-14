@@ -95,8 +95,8 @@ class ScanManager:
             max_workers=1, thread_name_prefix="specfile-streamer"
         )
         # Webhook paths are absolute on the server; our client may be rooted
-        # at a sub-node.
-        self._prefix = tuple(getattr(client, "path_parts", ()) or ())
+        # at a sub-node. (A root client reports path_parts == [''].)
+        self._prefix = tuple(p for p in getattr(client, "path_parts", ()) or () if p)
 
     # --- Public API ----------------------------------------------------------
 
@@ -106,7 +106,7 @@ class ScanManager:
 
     def handle(self, event: WebhookEvent) -> None:
         """Process one event synchronously."""
-        path = self._relative(event.node_path)
+        path = self._relative(tuple(p for p in event.node_path if p))
         if path is None:
             return
         if isinstance(event, ChildCreated):

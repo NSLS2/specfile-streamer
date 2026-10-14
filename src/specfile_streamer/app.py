@@ -84,6 +84,9 @@ def create_app(
             yield
         finally:
             manager.shutdown()
+            context = getattr(client, "context", None)
+            if context is not None:
+                context.close()
 
     app = FastAPI(title="specfile-streamer", lifespan=lifespan)
 

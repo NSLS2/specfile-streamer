@@ -120,6 +120,22 @@ module = "specfile_streamer.*"
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
 
+[[tool.mypy.overrides]]
+# Not type-annotated (or not installed in the pre-commit mypy environment).
+module = ["bluesky_tiled_plugins.*", "pandas.*", "tiled.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# Tests use small untyped fakes.
+module = [
+  "test_app",
+  "test_manager",
+  "test_scan",
+  "test_specfile",
+  "test_writer",
+]
+disable_error_code = ["arg-type", "no-untyped-call", "no-untyped-def"]
+
 
 [tool.ruff]
 show-fixes = true
@@ -180,6 +196,8 @@ ignore-paths = [".*/_version.py"]
 reports.output-format = "colorized"
 similarities.ignore-imports = "yes"
 messages_control.disable = [
+  # A long-running service must log and survive failures at its boundaries.
+  "broad-exception-caught",
   "design",
   "fixme",
   "line-too-long",

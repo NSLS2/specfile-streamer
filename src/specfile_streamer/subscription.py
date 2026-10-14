@@ -27,7 +27,7 @@ from bluesky_tiled_plugins import (
 if TYPE_CHECKING:
     from tiled.client.container import Container
 
-StreamSelection = Mapping[str, "str | Iterable[str] | None"]
+StreamSelection = Mapping[str, str | Iterable[str] | None]
 ScanSubscriptionOpener = Callable[
     ["Container", str, Callable[[BlueskyStreamUpdate], None], StreamSelection],
     "Disconnectable",
