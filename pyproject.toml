@@ -122,13 +122,14 @@ disallow_incomplete_defs = true
 
 [[tool.mypy.overrides]]
 # Not type-annotated (or not installed in the pre-commit mypy environment).
-module = ["bluesky_tiled_plugins.*", "pandas.*", "tiled.*"]
+module = ["bluesky.*", "bluesky_tiled_plugins.*", "ophyd.*", "pandas.*", "tiled.*"]
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
 # Tests use small untyped fakes.
 module = [
   "test_app",
+  "test_end_to_end",
   "test_manager",
   "test_scan",
   "test_specfile",

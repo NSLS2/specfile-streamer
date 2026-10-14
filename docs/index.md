@@ -4,6 +4,8 @@
 :maxdepth: 2
 :hidden:
 
+usage
+format
 ```
 
 ```{include} ../README.md
