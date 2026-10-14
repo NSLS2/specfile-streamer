@@ -30,7 +30,18 @@ classifiers = [
   "Typing :: Typed",
 ]
 dynamic = ["version"]
-dependencies = []
+dependencies = [
+  "bluesky-tiled-plugins >=2.0.12",
+  "fastapi",
+  "pandas",
+  "pydantic >=2",
+  "pydantic-settings >=2",
+  "tiled[client] >=0.2.19",
+  "uvicorn",
+]
+
+[project.scripts]
+specfile-streamer = "specfile_streamer.__main__:main"
 
 [project.urls]
 Homepage = "https://github.com/NSLS2/specfile-streamer"
@@ -41,8 +52,12 @@ Changelog = "https://github.com/NSLS2/specfile-streamer/releases"
 
 [dependency-groups]
 test = [
+  "bluesky",
+  "httpx",
+  "ophyd",
   "pytest >=9",
   "pytest-cov >=7",
+  "tiled[server] >=0.2.19",
 ]
 dev = [
   { include-group = "test" },
@@ -74,6 +89,8 @@ addopts = ["-ra", "--showlocals"]
 strict = true
 filterwarnings = [
   "error",
+  # Tiled depends on httpx; starlette's TestClient now prefers httpx2.
+  "ignore:Using `httpx` with `starlette.testclient` is deprecated:starlette.exceptions.StarletteDeprecationWarning",
 ]
 log_level = "INFO"
 testpaths = [
@@ -146,8 +163,14 @@ ignore = [
 # Uncomment if using a _compat.typing backport
 # typing-modules = ["specfile_streamer._compat.typing"]
 
+[tool.ruff.lint.flake8-type-checking]
+runtime-evaluated-base-classes = [
+  "pydantic.BaseModel",
+  "pydantic_settings.BaseSettings",
+]
+
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["T20"]
+"tests/**" = ["T20", "ARG", "EM", "TRY003"]
 "noxfile.py" = ["T20"]
 
 
